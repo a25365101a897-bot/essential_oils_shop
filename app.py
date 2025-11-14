@@ -139,16 +139,34 @@ def get_or_create_open_cart(db, user_id: int) -> Cart:
 
 
 
-# 建立 DB（放在專案根目錄）
+# 建立 DB：本機預設用 SQLite，若環境變數有 DATABASE_URL（例如 Render），則用 PostgreSQL
 DB_PATH = os.path.join(os.path.dirname(__file__), "site.db")
-engine = create_engine(f"sqlite:///{DB_PATH}", echo=False, future=True)
-Base.metadata.create_all(engine)
+default_sqlite_url = f"sqlite:///{DB_PATH}"
+
+db_url = os.environ.get("DATABASE_URL", default_sqlite_url)
+
+# Render / Heroku 類的 PostgreSQL 連線字串常會是 postgres:// 開頭，我們把它轉成 SQLAlchemy 接受的格式
+if db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql+psycopg2://", 1)
+elif db_url.startswith("postgresql://") and "psycopg2" not in db_url:
+    db_url = db_url.replace("postgresql://", "postgresql+psycopg2://", 1)
+
+engine = create_engine(
+    db_url,
+    echo=False,
+    future=True,
+)
+
 SessionLocal = scoped_session(sessionmaker(
     bind=engine,
     autoflush=False,
     autocommit=False,
     expire_on_commit=False
 ))
+
+# 確保所有表格在目前這個 engine 上建立（本機 = SQLite，Render = PostgreSQL）
+Base.metadata.create_all(engine)
+
 
 
 # ====== 新增：Flask-Login ======
