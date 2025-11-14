@@ -1,0 +1,43 @@
+seo:
+  title: "全部商品 – About E.O."
+  description: "依功效與情境挑選你要的精油。"
+
+# 可自由增刪的分類（用來顯示頁面上的篩選按鈕）
+categories:
+  - key: "all"     # 保留：全部
+    name: "全部商品"
+  - key: "relax"
+    name: "紓壓"
+  - key: "sleep"
+    name: "助眠"
+  - key: "focus"
+    name: "專注"
+
+products:
+  - name: "舒心複方精油"
+    slug: "relax-blend"
+    price: "NT$780"
+    image: "/static/img/P1.jpg"
+    tags: ["relax"]
+    desc: "以甜橙、佛手柑與薰衣草為主調，放鬆身心、緩解壓力。"
+
+  - name: "晚安薰衣草"
+    slug: "lavender-sleep"
+    price: "NT$650"
+    image: "/static/img/P2.jpg"
+    tags: ["sleep"]
+    desc: "高濃度法國薰衣草，助眠舒緩焦慮的經典精油。"
+
+  - name: "森呼吸冷製皂"
+    slug: "forest-soap"
+    price: "NT$320"
+    image: "/static/img/P3.jpg"
+    tags: ["sleep","focus"]
+    desc: "含雪松與薄荷的自然皂，清爽潔淨、提振專注力。"
+
+  - name: "強力健體"
+    slug: "bood-blend"
+    price: "NT$20"
+    image: "/static/img/P7.jpg"
+    tags: ["relax","focus"]
+    desc: "提振體力。"

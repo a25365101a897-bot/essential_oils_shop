@@ -1,0 +1,12 @@
+<section class="container pad-y-lg">
+  <h2 class="h2">{{ sec.heading }}</h2>
+  <div class="accordion">
+    {# 用 get 取出 'items'，如果沒有就用空陣列 #}
+    {% for item in sec.get('items', []) %}
+      <details>
+        <summary>{{ item.q }}</summary>
+        <p>{{ item.a }}</p>
+      </details>
+    {% endfor %}
+  </div>
+</section>

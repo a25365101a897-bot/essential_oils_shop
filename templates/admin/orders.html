@@ -1,0 +1,38 @@
+{% extends 'shop/layout.html' %}
+{% block content %}
+<section class="container pad-y-lg">
+  {% include 'components/admin_nav.html' %}
+  <h1 class="h2">訂單清單</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>訂單編號</th><th>會員</th><th>總額</th><th>狀態</th><th>時間</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for o in orders %}
+      <tr>
+        <td>{{ o.order_no }}</td>
+        <td>{{ o.user.name }} ({{ o.user.email }})</td>
+        <td>{{ cents_to_ntd(o.total_cents) }}</td>
+        <td>{{ o.status }}</td>
+        <td>{{ o.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+        <td><a class="btn ghost" href="{{ url_for('admin_order_detail', oid=o.id) }}">查看/改狀態</a></td>
+      </tr>
+      <tr>
+        <td colspan="6" class="muted">
+          {% if not o.items %}（無明細）{% else %}
+            {% for it in o.items %}
+              <span style="margin-right:14px">
+                {{ it.name }} × {{ it.qty }}（{{ cents_to_ntd(it.price_cents) }}）
+              </span>
+            {% endfor %}
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

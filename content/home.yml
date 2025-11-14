@@ -1,0 +1,30 @@
+seo:
+  title: "About E.O. – 日系自然保養"
+  description: "精油基底、自然純粹，溫柔生活提案。"
+hero:
+  heading: "Essential Oil, Essential Life"
+  sub: "自然純萃，回到肌膚最舒服的狀態"
+  cta_text: "探索系列"
+  cta_link: "#products"
+sections:
+  - type: text_image
+    heading: "關於品牌"
+    body: "我們相信配方的極簡比華麗更難。以少數成分達到剛剛好的效果。"
+    image: "/static/img/P6.jpg"
+    align: "left"
+  - type: product_grid
+    id: "products"
+    heading: "人氣系列"
+    from_products: ["relax-blend", "lavender-sleep", "bood-blend"]  # ← 直接寫 slug
+  - type: faq
+    heading: "常見問題"
+    items:
+      - q: "孕婦可使用嗎？"
+        a: "建議諮詢醫師，前三個月避免使用強烈精油。"
+      - q: "如何保存？"
+        a: "避免陽光直射，置於陰涼處並旋緊瓶蓋。"
+      - q: "TT？"
+        a: "避免陽光直射，置於陰涼處並旋緊瓶蓋。"
+footer:
+  brand: "About E.O."
+  rights: "© 2025 About E.O. All rights reserved."

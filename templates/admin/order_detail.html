@@ -1,0 +1,29 @@
+{% extends 'shop/layout.html' %}
+{% block content %}
+<section class="container pad-y-lg">
+  {% include 'components/admin_nav.html' %}
+  <h1 class="h2">訂單 {{ o.order_no }}</h1>
+
+  <p class="muted">{{ o.user.name }}（{{ o.user.email }}）｜{{ o.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+
+  <h3 class="h3">購買品項</h3>
+  <ul class="list">
+    {% for it in o.items %}
+      <li>{{ it.name }} × {{ it.qty }}（{{ cents_to_ntd(it.price_cents) }}）</li>
+    {% endfor %}
+  </ul>
+
+  <div class="h3" style="margin-top:8px">總額：{{ cents_to_ntd(o.total_cents) }}</div>
+
+  <form method="post" class="flex" style="gap:8px; margin-top:16px">
+    <label>狀態：</label>
+    <select name="status">
+      {% for s in ['pending','paid','shipped','completed','canceled'] %}
+        <option value="{{s}}" {% if o.status==s %}selected{% endif %}>{{s}}</option>
+      {% endfor %}
+    </select>
+    <button class="btn" type="submit">更新</button>
+    <a class="btn ghost" href="{{ url_for('admin_orders') }}">返回清單</a>
+  </form>
+</section>
+{% endblock %}

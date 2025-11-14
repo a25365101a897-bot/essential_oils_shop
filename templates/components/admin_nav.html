@@ -1,0 +1,8 @@
+<!-- templates/components/admin_nav.html -->
+<nav class="admin-nav flex" style="gap: 10px; margin: 12px 0;">
+  <a href="{{ url_for('admin_dashboard') }}" class="btn">內容管理</a>
+  <a href="{{ url_for('admin_users') }}" class="btn">會員</a>
+  <a href="{{ url_for('admin_orders') }}" class="btn">訂單</a>
+  <a href="{{ url_for('admin_logout') }}" class="btn ghost">登出</a>
+</nav>
+<hr>

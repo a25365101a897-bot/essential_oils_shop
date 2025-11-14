@@ -1,0 +1,32 @@
+{% extends 'shop/layout.html' %}
+{% block content %}
+<section class="container pad-y-lg">
+  <h1 class="h2">我的訂單</h1>
+
+  {% if not orders %}
+    <p class="muted">尚無訂單。</p>
+  {% else %}
+    <div class="stack-md">
+      {% for o in orders %}
+        <div class="card">
+          <div class="flex between center">
+            <div>
+              <div class="h3" style="margin:0 0 6px">{{ o.order_no }}</div>
+              <div class="muted">
+                {{ o.created_at.strftime('%Y-%m-%d %H:%M:%S') }} ｜ 狀態：{{ o.status }}
+              </div>
+            </div>
+            <div class="h3">{{ cents_to_ntd(o.total_cents) }}</div>
+          </div>
+
+          <div class="muted" style="margin-top:8px">
+            {% for it in o.items %}
+              <span style="margin-right:12px">{{ it.name }} × {{ it.qty }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

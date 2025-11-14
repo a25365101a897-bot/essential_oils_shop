@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% block content %}
+<section class="container pad-y-lg">
+  <div class="flex between center">
+    <h1 class="h2">編輯：{{ name }}.yml</h1>
+    <a class="btn ghost" href="{{ url_for('admin_dashboard') }}">返回清單</a>
+  </div>
+
+  <form method="post" class="stack-lg">
+    {% for key, val in data.items() %}
+      {% if val is string %}
+        <label class="stack-sm">
+          <span class="muted">{{ key }}</span>
+          <input type="text" name="data[{{ key }}]" value="{{ val|e }}" />
+        </label>
+      {% else %}
+        <details>
+          <summary><strong>{{ key }}</strong></summary>
+          <textarea name="data[{{ key }}]" rows="8">{{ val|tojson }}</textarea>
+          <p class="muted">（此欄為 JSON 文字，含巢狀物件/陣列）</p>
+        </details>
+      {% endif %}
+    {% endfor %}
+    <button class="btn" type="submit">儲存</button>
+  </form>
+</section>
+{% endblock %}

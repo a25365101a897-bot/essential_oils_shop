@@ -1,0 +1,28 @@
+{% extends 'shop/layout.html' %}
+{% block content %}
+<section class="container pad-y-lg">
+  <div class="flex between center">
+    <h1 class="h2">內容清單</h1>
+    <a class="btn ghost" href="{{ url_for('admin_logout') }}">登出</a>
+  </div>
+    {% include 'components/admin_nav.html' %}
+
+
+  <!-- 🔽 新增後台導覽列 -->
+  <nav style="margin: 12px 0;">
+    <a href="{{ url_for('admin_dashboard') }}" class="btn">內容管理</a>
+    <a href="{{ url_for('admin_users') }}" class="btn">會員</a>
+    <a href="{{ url_for('admin_orders') }}" class="btn">訂單</a>
+  </nav>
+  <hr>
+
+  <ul class="list">
+    {% for name in files %}
+    <li class="flex between center">
+      <code>{{ name }}.yml</code>
+      <a class="btn" href="{{ url_for('admin_edit', name=name) }}">編輯</a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

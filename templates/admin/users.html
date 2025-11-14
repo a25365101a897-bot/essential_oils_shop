@@ -1,0 +1,15 @@
+{% extends 'shop/layout.html' %}
+{% block content %}
+<section class="container pad-y-lg">
+  <h1 class="h2">會員清單</h1>
+  {% include 'components/admin_nav.html' %}
+  <table class="table">
+    <thead><tr><th>ID</th><th>Email</th><th>姓名</th></tr></thead>
+    <tbody>
+      {% for u in users %}
+      <tr><td>{{u.id}}</td><td>{{u.email}}</td><td>{{u.name}}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

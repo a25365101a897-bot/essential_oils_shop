@@ -1,0 +1,14 @@
+{% extends 'shop/layout.html' %}
+{% block content %}
+  {% include 'components/hero.html' %}
+
+  {% for sec in data.sections %}
+    {% if sec.type == 'text_image' %}
+      {% include 'components/section_text_image.html' %}
+    {% elif sec.type == 'product_grid' %}
+      {% include 'components/product_grid.html' %}
+    {% elif sec.type == 'faq' %}
+      {% include 'components/faq.html' %}
+    {% endif %}
+  {% endfor %}
+{% endblock %}

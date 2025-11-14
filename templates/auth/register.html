@@ -1,0 +1,13 @@
+{% extends 'shop/layout.html' %}
+{% block content %}
+<section class="container pad-y-lg" style="max-width:520px">
+  <h1 class="h2">註冊</h1>
+  <form method="post" class="stack-md">
+    <input type="text"  name="name"  placeholder="姓名"  required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="密碼（至少 6 碼）" required>
+    <button class="btn" type="submit">建立帳號</button>
+  </form>
+  <p class="muted">已有帳號？<a href="{{ url_for('login') }}">登入</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,7 @@
+<section class="hero" style="background-image:url('{{ data.hero.image if data.hero and data.hero.image else "/static/img/hero.jpg" }}')">
+  <div class="container hero-inner">
+    <h1 class="hero-title">{{ data.hero.heading }}</h1>
+    <p class="hero-sub">{{ data.hero.sub }}</p>
+    <a href="{{ data.hero.cta_link }}" class="btn">{{ data.hero.cta_text }}</a>
+  </div>
+</section>

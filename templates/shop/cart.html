@@ -1,0 +1,50 @@
+{% extends 'shop/layout.html' %}
+{% block content %}
+<section class="container pad-y-lg">
+  <h1 class="h2">購物車</h1>
+
+  {% if not cart %}
+    <p class="muted">購物車目前是空的。</p>
+    <p><a class="btn" href="{{ url_for('index') }}#products">去逛逛</a></p>
+  {% else %}
+    <div class="stack-md">
+      {% for cid, item in cart.items() %}
+      <div class="card" style="padding:12px">
+        <div class="flex between center">
+          <div class="flex center" style="gap:12px">
+            <img src="{{ (item.image or 'img/p1.jpg')|static_url }}"
+                 alt="" style="width:64px;height:64px;border-radius:10px;object-fit:cover">
+            <div>
+              <div class="h3" style="margin:0 0 6px">{{ item.name }}</div>
+              <div class="price">{{ item.price }}</div>
+            </div>
+          </div>
+
+          <form method="post" action="{{ url_for('cart_update') }}" class="flex center" style="gap:8px">
+            <input type="hidden" name="id" value="{{ cid }}">
+            <input type="number" name="qty" min="0" value="{{ item.qty }}" style="width:80px">
+            <button class="btn" type="submit">更新</button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="flex between center" style="margin-top:16px">
+      <div class="h3">小計 NT${{ '%.0f'|format(total) }}</div>
+      <div class="flex" style="gap:8px">
+        <form method="post" action="{{ url_for('cart_clear') }}">
+          <button class="btn ghost" type="submit">清空</button>
+        </form>
+        {% if current_user.is_authenticated %}
+          <form method="post" action="{{ url_for('checkout') }}">
+            <button class="btn" type="submit">結帳（Demo）</button>
+          </form>
+        {% else %}
+          <a class="btn" href="{{ url_for('login') }}">登入後結帳</a>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'shop/layout.html' %}
+{% block content %}
+<section class="container pad-y-lg">
+  <h1 class="h1">品牌故事</h1>
+  {% for b in data.blocks %}
+    <article class="stack-md pad-y">
+      <h2 class="h2">{{ b.heading }}</h2>
+      <p class="muted">{{ b.body }}</p>
+    </article>
+  {% endfor %}
+</section>
+{% endblock %}

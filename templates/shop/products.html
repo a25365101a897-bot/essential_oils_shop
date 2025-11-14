@@ -1,0 +1,47 @@
+{% extends 'shop/layout.html' %}
+{% block content %}
+<section class="container pad-y-lg">
+  <h1 class="h1">{{ (data.seo.title or '全部商品') if data.get('seo') else '全部商品' }}</h1>
+
+  <!-- 分類列 -->
+  <div class="flex" style="gap:8px; margin:12px 0 20px">
+    {% for c in categories %}
+      <a class="btn {% if current_cat==c.key %}{% else %}ghost{% endif %}"
+         href="{{ url_for('products', cat=c.key) }}">
+        {{ c.name }}（{{ c.count }}）
+      </a>
+    {% endfor %}
+  </div>
+
+  <!-- 商品格線 -->
+  <div class="grid-3">
+  {% for p in products %}
+  {% set slug = p.slug or _slugify(p.name) %}
+  <div class="card" style="position:relative">
+    <a href="{{ url_for('product_detail', slug=slug) }}">
+      <img src="{{ (p.image or 'img/p1.jpg')|static_url }}" alt="{{ p.name }}" loading="lazy">
+    </a>
+    <div class="card-body">
+      <h3 class="h3">
+        <a href="{{ url_for('product_detail', slug=slug) }}">{{ p.name }}</a>
+      </h3>
+      <div class="price">{{ p.price }}</div>
+
+      <form method="post" action="{{ url_for('cart_add') }}" class="stack-sm" style="margin-top:8px; position:relative; z-index:2">
+        <input type="hidden" name="name"  value="{{ p.name }}">
+        <input type="hidden" name="price" value="{{ p.price }}">
+        <input type="hidden" name="image" value="{{ p.image or 'img/p1.jpg' }}">
+        <input type="hidden" name="next"  value="/products?cat={{ current_cat }}">
+        <button class="btn" type="submit">加入購物車</button>
+      </form>
+
+      <a href="{{ url_for('product_detail', slug=slug) }}"
+         style="position:absolute; inset:0; z-index:1;"
+         aria-label="{{ p.name }}"></a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+</section>
+{% endblock %}

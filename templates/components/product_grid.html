@@ -1,0 +1,32 @@
+<section id="{{ sec.id or 'products' }}" class="container pad-y-lg">
+  <h2 class="h2">{{ sec.heading }}</h2>
+  <div class="grid-3">
+    {% for p in sec.products %}
+    {% set slug = p.slug or _slugify(p.name) %}
+    <div class="card" style="position:relative">
+      <a href="{{ url_for('product_detail', slug=slug) }}">
+        <img src="{{ (p.image or 'img/p1.jpg')|static_url }}" alt="{{ p.name }}" loading="lazy">
+      </a>
+      <div class="card-body">
+        <h3 class="h3">
+          <a href="{{ url_for('product_detail', slug=slug) }}">{{ p.name }}</a>
+        </h3>
+        <div class="price">{{ p.price }}</div>
+
+        <form method="post" action="{{ url_for('cart_add') }}" class="stack-sm" style="margin-top:8px; position:relative; z-index:2">
+          <input type="hidden" name="name"  value="{{ p.name }}">
+          <input type="hidden" name="price" value="{{ p.price }}">
+          <input type="hidden" name="image" value="{{ p.image or 'img/p1.jpg' }}">
+          <input type="hidden" name="next"  value="/#products">
+          <button class="btn" type="submit">加入購物車</button>
+        </form>
+
+        <!-- 鋪滿卡片可點區（不蓋到按鈕） -->
+        <a href="{{ url_for('product_detail', slug=slug) }}"
+           style="position:absolute; inset:0; z-index:1;"
+           aria-label="{{ p.name }}"></a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>

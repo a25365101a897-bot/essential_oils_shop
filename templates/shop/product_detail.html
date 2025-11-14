@@ -1,0 +1,27 @@
+{% extends 'shop/layout.html' %}
+{% block content %}
+<section class="container pad-y-lg">
+  <div class="grid-2" style="align-items:center; gap:40px">
+    <div>
+      <img src="{{ (item.image or 'img/p1.jpg')|static_url }}" 
+           alt="{{ item.name }}" style="width:100%; border-radius:12px; object-fit:cover;">
+    </div>
+
+    <div>
+      <h1 class="h2">{{ item.name }}</h1>
+      <div class="price" style="margin:8px 0 20px;">{{ item.price }}</div>
+      <p style="color:var(--muted); line-height:1.8;">{{ item.desc }}</p>
+
+      <form method="post" action="{{ url_for('cart_add') }}" style="margin-top:20px">
+        <input type="hidden" name="name"  value="{{ item.name }}">
+        <input type="hidden" name="price" value="{{ item.price }}">
+        <input type="hidden" name="image" value="{{ item.image }}">
+        <input type="hidden" name="next"  value="{{ request.path }}">
+        <button class="btn" type="submit">加入購物車</button>
+      </form>
+
+      <p style="margin-top:24px;"><a href="{{ url_for('products') }}">← 回商品列表</a></p>
+    </div>
+  </div>
+</section>
+{% endblock %}
